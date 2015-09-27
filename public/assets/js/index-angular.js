@@ -1,6 +1,12 @@
 var app=angular.module('myApp',[]);
 app.controller('myCtrl',function($scope,$http) {
-  $scope.list=["Sugar","Salt","Cereal"];
+
+
+  $scope.list=[];
+  $http.get('http://localhost:1337/getItems')
+  .success(function(response) {
+    $scope.list=response;
+  });
   $scope.item='';
   $scope.walList=[];
   $scope.macList=[];
@@ -12,8 +18,6 @@ app.controller('myCtrl',function($scope,$http) {
     $scope.item=$scope.list[index];
     $('#myModal').modal('toggle');
     console.log($scope.item);
-    //get walmart list
-    //get macyslist
     $scope.mainList=[];
     $scope.searchName='';
 
@@ -75,6 +79,10 @@ app.controller('myCtrl',function($scope,$http) {
         return false;
       }      
       $scope.$apply($scope.list.push(inputValue));
+      $http.get('http://localhost:1337/setItems?itemName='+inputValue)
+      .success(function(response) {
+
+      });
     } 
     );
   }
@@ -82,46 +90,77 @@ app.controller('myCtrl',function($scope,$http) {
 
 
 
-$scope.addWalmart=function($val){
-   swal( {   
-      title: "Add Item",   
-      text: "Enter Item Name",   
-      type: "input",   showCancelButton: true,   
-      closeOnConfirm: true,  
-      animation: "slide-from-top",   
-      inputPlaceholder: "Write something" 
-    }, 
-    function(inputValue){   
-      if (inputValue === false) return false;      
-      if (inputValue === "") {     
-        swal.showInputError("You need to write something!");     
-        return false;
-      }      
-      $scope.$apply($scope.list.push(inputValue));
-    } 
-    );
+  $scope.addWalmart=function($val1,$val2){
+    var balance=0;
+    $http.get('http://localhost:1337/getBalance')
+    .success(function(response){
+      balance=response.balance;
+      console.log(balance);
+      var tempBalance=parseFloat(balance)-parseFloat($val2);
+      console.log(tempBalance);
+      swal({   title: "Are you sure you want to order "+$val1+" of price $"+$val2+" from Walmart?", 
+        text: "You will not be able to change the order.Your Current balance is $"+balance,
+        type: "warning", 
+        showCancelButton: true, 
+        confirmButtonColor: "#DD6B55",  
+        confirmButtonText: "Yes, Place the order",  
+        cancelButtonText: "No, cancel the order!",  
+        closeOnConfirm: false, 
+        closeOnCancel: false },
+        function(isConfirm){   
+          if (isConfirm) {    
+           swal("Order Placed", "Your Order has been placed ", "success"); 
+           alertify.log("Your transaction is processed and your balance is "+tempBalance, "", "");
+           $http.get('http://localhost:1337/setBalance?balance='+tempBalance)
+           .success(function(response){
+           });
+
+           //add to user walmart list
+
+
+
+         } else 
+         {     
+          swal("Cancelled", "Your Order is cancelled", "error");   
+        }
+      });
+    });
 }
 
 
-$scope.addMacy=function($val){
-   swal( {   
-      title: "Add Item",   
-      text: "Enter Item Name",   
-      type: "input",   showCancelButton: true,   
-      closeOnConfirm: true,  
-      animation: "slide-from-top",   
-      inputPlaceholder: "Write something" 
-    }, 
-    function(inputValue){   
-      if (inputValue === false) return false;      
-      if (inputValue === "") {     
-        swal.showInputError("You need to write something!");     
-        return false;
-      }      
-      $scope.$apply($scope.list.push(inputValue));
-    } 
-    );
+$scope.addMacy=function($val1,$val2){
+ var balance=0;
+ $http.get('http://localhost:1337/getBalance')
+ .success(function(response){
+  balance=response.balance;
+  console.log(balance);
+  var tempBalance=parseFloat(balance)-parseFloat($val2);
+  console.log(tempBalance);
+  swal({   title: "Are you sure you want to order "+$val1+" of price $"+$val2+" from Macy's?", 
+    text: "You will not be able to change the order.Your Current balance is $"+balance,
+    type: "warning", 
+    showCancelButton: true, 
+    confirmButtonColor: "#DD6B55",  
+    confirmButtonText: "Yes, Place the order",  
+    cancelButtonText: "No, cancel the order!",  
+    closeOnConfirm: false, 
+    closeOnCancel: false },
+    function(isConfirm){   
+      if (isConfirm) {    
+       swal("Order Placed", "Your Order has been placed ", "success"); 
+       alertify.log("Your transaction is processed and your balance is "+tempBalance, "", "");
+       $http.get('http://localhost:1337/setBalance?balance='+tempBalance)
+       .success(function(response){
+       });
+
+       //add to user macy list
+
+
+     } else 
+     {     
+      swal("Cancelled", "Your Order is cancelled", "error");   
+    }
+  });
+});
 }
-
-
 });
