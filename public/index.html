@@ -1,146 +1,51 @@
 <!DOCTYPE HTML>
 <!--
-	Landed by HTML5 UP
+	Aerial by HTML5 UP
 	html5up.net | @n33co
 	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
 -->
-<html ng-app="myApp">
-<head>
-	<title>Landed by HTML5 UP</title>
-	<meta charset="utf-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1" />
-	<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
-	<link rel="stylesheet" href="http://getbootstrap.com/2.3.2/assets/css/bootstrap.css" />
-	<link rel="stylesheet" href="assets/css/main.css" />
-	<link rel="stylesheet" href="assets/css/sweet-alert.css" />
-	<link rel="stylesheet" href="http://jschr.github.io/bootstrap-modal/css/bootstrap-modal.css" />
-	<link rel="stylesheet" href="http://getbootstrap.com/2.3.2/assets/css/bootstrap-responsive.css" />
-	<link rel="stylesheet" href="assets/css/alertify.core.css" />
-	<link rel="stylesheet" href="assets/css/alertify.default.css" />
-	<style>
-	body,
-	.modal-open .page-container,
-	.modal-open .page-container .navbar-fixed-top,
-	.modal-open .modal-container {
-		overflow-y: scroll;
-	}
+<html>
+	<head>
+		<title>App Name here</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+		<link rel="stylesheet" href="assets1/css/main.css" />
+		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
+		<!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
+	</head>
+	<body class="loading">
+		<div id="wrapper">
+			<div id="bg"></div>
+			<div id="overlay"></div>
+			<div id="main">
 
-	@media  {
-		.modal-open .page-container .navbar-fixed-top{
-			overflow-y: scroll;
-		}
-	}
-	.modal.modal-wide .modal-dialog {
-		width: 90%;
-	}
-	</style>
-	<!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
-	<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
-</head>
-<body class="landing" ng-controller="myCtrl">
-	<div id="page-wrapper">
+				<!-- Header -->
+					<header id="header">
+						<h1>Name of the App</h1>
+						<p>Tagline here</p>
+						<nav>
+							<ul>
+								<li><a href="#" class="icon fa-credit-card"><span class="label">Twitter</span></a></li>
+								<li><a href="balance.html" class="icon fa-money"><span class="label">Twitter</span></a></li>
+								<li><a href="index1.html" class="icon fa-shopping-cart"><span class="label">Twitter</span></a></li>
+								
+							</ul>
+						</nav>
+					</header>
 
-		<!-- Header -->
-		<header id="header">
-			<h1 id="logo"><a href="index.html">ShoppingList</a></h1>
-			<nav id="nav">
-				<ul>
-					<li><a href="index.html">Home</a></li>
-					<li><a href="balance.html">Bank balance</a></li>
-					<li><a href="friends.html">Friends Lookup</a></li>
-					<li><a href="signup.html" class="button special">Sign Up</a></li>
-				</ul>
-			</nav>
-		</header>
-
-		<!-- Banner -->
-		<section id="banner">
-
-			<div class="content" id="listItems">
-				<div ng-click="addItems()" data-toggle="modal" >
-					<span class="icon fa-plus" style="color:red;"> Add Item</span></div>
-
-					<!-- Modal -->
-					<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" >
-						<div class="modal-dialog modal-lg" >
-							<div class="modal-content">
-								<div class="modal-header">
-									<button type="button" class="close" data-dismiss="modal" aria-label="Close" style="color:black;"><span aria-hidden="true">&times;</span></button>
-									<h4 class="modal-title text-center" id="myModalLabel" style="color:black;" >Item : {{item}}</h4>
-								</div>
-								<div class="modal-body" style=" background-color:white;color:black;">	
-									Search by Name: <input type="text" ng-model="searchName" placeholder="Search Here" style="color:black;background-color:#D6C6D0;">
-									<table class="table table-hover">
-										<thead>
-											<tr style="color:black;background-color:black;">
-												<th colspan="3" class="text-center">Walmart</th>
-												<th colspan="3" class="text-center">Macy's</th>
-											</tr>
-											<tr style="color:black;background-color:black;">
-												<th>Image</th>
-												<th>Name</th>
-												<th>Price</th>
-												<th>Image</th>
-												<th>Name</th>
-												<th>Price</th>
-											</tr>
-										</thead>
-										<tbody>
-											<tr ng-repeat="listItem in mainList | filter:searchName track by $index"  data-target="#myModal">
-												<td><img ng-src="{{listItem.walImage}}"></td>
-												<td>{{listItem.walName}}</td>
-												<td class="icon fa-shopping-cart" ng-click="addWalmart(listItem.walName,listItem.walPrice)">${{listItem.walPrice}}</td>
-
-												<td><img ng-src="{{listItem.macImage}}"></td>
-												<td>{{listItem.macName}}</td>
-												<td class="icon fa-shopping-cart" ng-click="addMacy(listItem.macName,listItem.macPrice)">${{listItem.macPrice}}</td>
-											</tbody>
-										</table>
-									</div>
-									<div class="modal-footer">
-										<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-									</div>
-								</div>
-							</div>
-						</div>
-						<ul>
-							<li ng-repeat="listItem in list track by $index" ng-click="listClick($index)" data-target="#myModal">{{listItem}}</li>
-
-						</ul>
-					</div>
-				</section>
-				<!-- Footer -->	
-				<footer id="footer">
-					<ul class="icons">
-						<li><a href="#" class="icon alt fa-twitter"><span class="label">Twitter</span></a></li>
-						<li><a href="#" class="icon alt fa-facebook"><span class="label">Facebook</span></a></li>
-						<li><a href="#" class="icon alt fa-linkedin"><span class="label">LinkedIn</span></a></li>
-						<li><a href="#" class="icon alt fa-instagram"><span class="label">Instagram</span></a></li>
-						<li><a href="#" class="icon alt fa-github"><span class="label">GitHub</span></a></li>
-						<li><a href="#" class="icon alt fa-envelope"><span class="label">Email</span></a></li>
-					</ul>
-					<ul class="copyright">
-						<li>&copy; Untitled. All rights reserved.</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
-					</ul>
-				</footer>
+				<!-- Footer -->
+					<footer id="footer">
+						<span class="copyright">&copy; Untitled. Design: <a href="http://html5up.net">HTML5 UP</a>.</span>
+					</footer>
 
 			</div>
-
-			<!-- Scripts -->
-			<script src="assets/js/jquery.min.js"></script>
-			<script src="assets/js/jquery.scrolly.min.js"></script>
-			<script src="assets/js/jquery.dropotron.min.js"></script>
-			<script src="assets/js/jquery.scrollex.min.js"></script>
-			<script src="http://getbootstrap.com/2.3.2/assets/js/bootstrap.js"></script>
-			<script src="http://jschr.github.io/bootstrap-modal/js/bootstrap-modalmanager.js"></script>
-			<script src="http://jschr.github.io/bootstrap-modal/js/bootstrap-modal.js"></script>
-			<script src="assets/js/skel.min.js"></script>
-			<script src="assets/js/util.js"></script>
-			<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
-			<script src="assets/js/sweet-alert.js"></script>
-			<script src="assets/js/main.js"></script>
-			<script src="assets/js/angular.min.js"></script>
-			<script src="assets/js/alertify.min.js"></script>
-			<script src="assets/js/index-angular.js"></script>
-		</body>
-		</html>
+		</div>
+		<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+		<script>
+			window.onload = function() { document.body.className = ''; }
+			window.ontouchmove = function() { return false; }
+			window.onorientationchange = function() { document.body.scrollTop = 0; }
+		</script>
+	</body>
+</html>
