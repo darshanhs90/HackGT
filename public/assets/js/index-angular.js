@@ -92,6 +92,7 @@ app.controller('myCtrl',function($scope,$http) {
 
   $scope.addWalmart=function($val1,$val2){
     var balance=0;
+    //alert($val1);
     $http.get('http://localhost:1337/getBalance')
     .success(function(response){
       balance=response.balance;
@@ -196,9 +197,14 @@ $scope.finalisePayment=function()
 $scope.refresh=function()
 {
 
- $http.get('http://localhost:1337/refresh')
+ $http.get('http://localhost:1337/getDeliverRequirements')
  .success(function(response){
   console.log(response);
+
+  if(response.user1.approved[0]==1){
+    swal("Order Accepted", "Your Order has been accepted ", "success"); 
+  }
+
 });
 
 }

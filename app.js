@@ -27,15 +27,18 @@ var finObj = [{
 var requests = {
     "user1": {
         "Walmart": ["Item1", "Item2", "Item3"],
-        "Macys": ["Item1", "Item2", "Item3"]
+        "Macys": ["Item1", "Item2", "Item3"],
+        "approved":[0,0]
     },
     "user2": {
         "Walmart": ["Item1", "Item2", "Item3"],
-        "Macys": ["Item1", "Item2", "Item3"]
+        "Macys": ["Item1", "Item2", "Item3"],
+        "approved":[0,0]
     },
     "user3": {
         "Walmart": ["Item1", "Item2", "Item3"],
-        "Macys": ["Item1", "Item2", "Item3"]
+        "Macys": ["Item1", "Item2", "Item3"],
+        "approved":[0,0]
     }
 };
 // get the app environment from Cloud Foundry
@@ -169,7 +172,7 @@ app.get('/addToMacys', function(req, res) {
 
 app.get('/getDeliverRequirements', function(req, res) {
     res.send(requests);
-    res.send();
+    res.end();
 })
 
 
@@ -191,10 +194,7 @@ app.get('/finalisePayments', function(req, res) {
 })
 
 
-app.get('/refresh', function(req, res) {
-    res.send(requests);
-    res.send();
-})
+
 
 
 app.get('/getDeals', function(req, res) {
@@ -330,3 +330,9 @@ function (err) {
 
 
 })
+
+
+app.get('/setApprovedList', function(req, res) {
+    requests[req.query.keyName].approved[req.query.shopName]=1;
+    res.end();
+});
