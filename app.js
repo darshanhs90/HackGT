@@ -260,6 +260,7 @@ app.get('/getDeals', function(req, res) {
 var deals=[];
 var async=require('async');
 app.get('/getDeals1',function(req,res){
+    deals=[];
    page=0,lastPage=list.length-1;
 async.whilst(function () {
   return page <= lastPage;
@@ -309,7 +310,7 @@ var minIndex = -1;
                             };
                             deals.push(obj);
                             page++;
-                            if(page==lastPage)
+                            if(page==(lastPage))
                             {
                                 res.send(deals);
 res.end();

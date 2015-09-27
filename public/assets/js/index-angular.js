@@ -167,12 +167,18 @@ $scope.addMacy=function($val1,$val2){
 }
 
 
+  $("#demo01").animatedModal();
+  $scope.filList=[];
 $scope.fetchBestDeals=function()
 {
 
  $http.get('http://localhost:1337/getDeals1')
  .success(function(response){
   console.log(response);
+  /*for (var i = 0; i < response.length; i++) {
+     $scope.$apply($scope.filList.push(response[i]));
+  };
+ */
 });
 }
 

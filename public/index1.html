@@ -17,6 +17,7 @@
 	<link rel="stylesheet" href="http://getbootstrap.com/2.3.2/assets/css/bootstrap-responsive.css" />
 	<link rel="stylesheet" href="assets/css/alertify.core.css" />
 	<link rel="stylesheet" href="assets/css/alertify.default.css" />
+	  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.2.0/animate.min.css">
 	<style>
 	body,
 	.modal-open .page-container,
@@ -57,12 +58,14 @@
 		<section id="banner">
 
 			<div class="content" id="listItems">
-				<span class="icon fa-sellsy" style="color:white;" ng-click="fetchBestDeals()"> Fetch Best Deals</span><br/>
+				<a class="icon fa-sellsy" style="color:white;"  href="index2.html" href="#animatedModal"> Fetch Best Deals</a><br/>
 				<span class="icon fa-cc-visa" style="color:white;" ng-click="finalisePayment()"> Finalize Payment</span>
 				
 				<span class="icon fa-spinner" style="color:white;" ng-click="refresh()"> Refresh</span>
 				<div ng-click="addItems()" data-toggle="modal" >
 					<span class="icon fa-plus" style="color:white;"> Add Item</span></div>
+
+
 
 					<!-- Modal -->
 					<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" >
@@ -145,6 +148,7 @@
 			<script src="assets/js/main.js"></script>
 			<script src="assets/js/angular.min.js"></script>
 			<script src="assets/js/alertify.min.js"></script>
+			<script src="assets/js/animatedModal.min.js"></script>
 			<script src="assets/js/index-angular.js"></script>
 		</body>
 		</html>
