@@ -174,16 +174,17 @@ app.get('/getDeliverRequirements', function(req, res) {
 
 
 app.get('/finalisePayments', function(req, res) {
-
+    var amt=parseInt(req.query.amount);
     request.post({
         headers:{'content-type':'application/json','Accept':'application/json'},
         url:     'http://api.reimaginebanking.com/accounts/55e94a6cf8d8770528e61a8d/transfers?key=104fc14f0a0f118116f8a666021d3323',
         json:    { 
             "medium": "balance",
             "payee_id": "55e94a6cf8d8770528e61a8c",
-            "amount": req.query.amount
+            "amount": amt
         }
     }, function(error, response, body){
+        console.log(response);
         res.send('transaction created');
         res.end();
     });
@@ -261,62 +262,62 @@ var deals=[];
 var async=require('async');
 app.get('/getDeals1',function(req,res){
     deals=[];
-   page=0,lastPage=list.length-1;
-async.whilst(function () {
-  return page <= lastPage;
-},
-function (next) {
+    page=0,lastPage=list.length-1;
+    async.whilst(function () {
+      return page <= lastPage;
+  },
+  function (next) {
     console.log(list[page]);
-var minIndex = -1;
-        var min = 1000000000;
-        var minName = '';
-        var minImage = '';
-        var minPrice = '';
-        var walMac = 0; 
-  request('http://api.walmartlabs.com/v1/search?query=' + list[page] + '&format=json&apiKey=6xjhg2baqmrjw5u5a6ywzxzc', function(error, response, body) {
-            if (!error && response.statusCode == 200) {
-                console.log(JSON.parse(response.body).items);
-               for (var i = 0; i < 10; i++) {
+    var minIndex = -1;
+    var min = 1000000000;
+    var minName = '';
+    var minImage = '';
+    var minPrice = '';
+    var walMac = 0; 
+    request('http://api.walmartlabs.com/v1/search?query=' + list[page] + '&format=json&apiKey=6xjhg2baqmrjw5u5a6ywzxzc', function(error, response, body) {
+        if (!error && response.statusCode == 200) {
+            console.log(JSON.parse(response.body).items);
+            for (var i = 0; i < 10; i++) {
                    //console.log(JSON.parse(response.body).items[i]);
-                    if (JSON.parse(response.body).items[i].salePrice < min) {
-                        min = JSON.parse(response.body).items[i].salePrice;
-                        minPrice = min;
-                        minName = JSON.parse(response.body).items[i].name;
-                        minImage = JSON.parse(response.body).items[i].thumbnailImage;
-                        minIndex = i;
-                    }
-               };
-                request('http://www.supermarketapi.com/api.asmx/COMMERCIAL_SearchByProductName?APIKEY=3c1446d05d&ItemName=' + list[page], function(error, response, body) {
-                    if (!error && response.statusCode == 200) {
-                        var xml = body;
-                        parseString(xml, function(err, result) {
-                            var itemsRes = (result.ArrayOfProduct_Commercial.Product_Commercial);
-                           console.log(itemsRes);
-                            for (var i = 0; i < itemsRes.length; i++) {
-                                if (itemsRes[i].salePrice < min) {
-                                    walMac = 1;
-                                    min = itemsRes[i].Pricing[0];
-                                    minPrice = min;
-                                    minName = itemsRes[i].Itemname[0];
-                                    minImage = itemsRes[i].ItemImage[0];
-                                    minIndex = i;
-                                }
-                            };
-                            var obj = {
-                                'name': minName,
-                                'price': minPrice,
-                                'link': minImage,
-                                'walMac': walMac
-                            };
-                            deals.push(obj);
-                            page++;
-                            if(page==(lastPage))
-                            {
-                                res.send(deals);
-res.end();
+                   if (JSON.parse(response.body).items[i].salePrice < min) {
+                    min = JSON.parse(response.body).items[i].salePrice;
+                    minPrice = min;
+                    minName = JSON.parse(response.body).items[i].name;
+                    minImage = JSON.parse(response.body).items[i].thumbnailImage;
+                    minIndex = i;
+                }
+            };
+            request('http://www.supermarketapi.com/api.asmx/COMMERCIAL_SearchByProductName?APIKEY=3c1446d05d&ItemName=' + list[page], function(error, response, body) {
+                if (!error && response.statusCode == 200) {
+                    var xml = body;
+                    parseString(xml, function(err, result) {
+                        var itemsRes = (result.ArrayOfProduct_Commercial.Product_Commercial);
+                        console.log(itemsRes);
+                        for (var i = 0; i < itemsRes.length; i++) {
+                            if (itemsRes[i].salePrice < min) {
+                                walMac = 1;
+                                min = itemsRes[i].Pricing[0];
+                                minPrice = min;
+                                minName = itemsRes[i].Itemname[0];
+                                minImage = itemsRes[i].ItemImage[0];
+                                minIndex = i;
                             }
-                            next();
-                        });
+                        };
+                        var obj = {
+                            'name': minName,
+                            'price': minPrice,
+                            'link': minImage,
+                            'walMac': walMac
+                        };
+                        deals.push(obj);
+                        page++;
+                        if(page==(lastPage))
+                        {
+                            res.send(deals);
+                            res.end();
+                        }
+                        next();
+                    });
 };
 });
 }
