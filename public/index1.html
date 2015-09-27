@@ -47,7 +47,7 @@
 				<ul>
 					<li><a href="index1.html">Home</a></li>
 					<li><a href="balance.html">Bank balance</a></li>
-					<li><a href="friends.html">Friends Lookup</a></li>
+					<li><a href="friends.html">Users Lookup</a></li>
 					<li><a href="signup.html" class="button special">Sign Up</a></li>
 				</ul>
 			</nav>
@@ -57,8 +57,12 @@
 		<section id="banner">
 
 			<div class="content" id="listItems">
+				<span class="icon fa-sellsy" style="color:white;" ng-click="fetchBestDeals()"> Fetch Best Deals</span><br/>
+				<span class="icon fa-cc-visa" style="color:white;" ng-click="finalisePayment()"> Finalize Payment</span>
+				
+				<span class="icon fa-spinner" style="color:white;" ng-click="refresh()"> Refresh</span>
 				<div ng-click="addItems()" data-toggle="modal" >
-					<span class="icon fa-plus" style="color:red;"> Add Item</span></div>
+					<span class="icon fa-plus" style="color:white;"> Add Item</span></div>
 
 					<!-- Modal -->
 					<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" >

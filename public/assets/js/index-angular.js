@@ -115,16 +115,16 @@ app.controller('myCtrl',function($scope,$http) {
            .success(function(response){
            });
 
-           //add to user walmart list
-
-
+           $http.get('http://localhost:1337/addToWalmart?itemName='+$val1)
+           .success(function(response){
+           });
 
          } else 
          {     
           swal("Cancelled", "Your Order is cancelled", "error");   
         }
       });
-    });
+});
 }
 
 
@@ -153,7 +153,9 @@ $scope.addMacy=function($val1,$val2){
        .success(function(response){
        });
 
-       //add to user macy list
+       $http.get('http://localhost:1337/addToMacys?itemName='+$val1)
+       .success(function(response){
+       });
 
 
      } else 
@@ -163,4 +165,40 @@ $scope.addMacy=function($val1,$val2){
   });
 });
 }
+
+
+$scope.fetchBestDeals=function()
+{
+
+ $http.get('http://localhost:1337/getDeals1')
+ .success(function(response){
+  console.log(response);
+});
+}
+
+$scope.finalisePayment=function()
+{
+
+
+  $http.get('http://localhost:1337/finalisePayments?amount='+100)
+  .success(function(response){
+    alertify.success(response);
+  });
+}
+
+$scope.refresh=function()
+{
+
+ $http.get('http://localhost:1337/refresh')
+ .success(function(response){
+  console.log(response);
+});
+
+}
+
+
+
+
+
+
 });

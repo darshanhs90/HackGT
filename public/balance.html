@@ -4,7 +4,7 @@
 	html5up.net | @n33co
 	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
 -->
-<html>
+<html ng-app="myApp">
 	<head>
 		<title>Right Sidebar - Landed by HTML5 UP</title>
 		<meta charset="utf-8" />
@@ -15,7 +15,7 @@
 		<!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
 		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
 	</head>
-	<body>
+	<body ng-controller="myCtrl">
 		<div id="page-wrapper">
 
 			<!-- Header -->
@@ -25,7 +25,7 @@
 						<ul>
 							<li><a href="index1.html">Home</a></li>
 							<li><a href="balance.html">Bank balance</a></li>
-							<li><a href="friends.html">Friends Lookup</a></li>
+							<li><a href="friends.html">Users Lookup</a></li>
 							<li><a href="signup.html" class="button special">Sign Up</a></li>
 						</ul>
 					</nav>
@@ -41,19 +41,47 @@
 								</tr>
 							</thead>
 							<tbody>
-								<tr>
-									<td>Ante turpis integer aliquet porttitor.</td>
-									<td>29.99</td>
+								<tr ng-repeat="listItem in list track by $index">
+									<td>{{listItem.type}}</td>
+									<td>{{listItem.balance}}</td>
 								</tr>
-								<tr>
-									<td>Vis ac commodo adipiscing arcu aliquet.</td>
-									<td>19.99</td>
-								</tr>
+								
 							</tbody>
 							<tfoot>
 								<tr>
 									<td colspan="1"></td>
-									<td>49.98</td>
+									<td>{{list[0].balance+list[1].balance}}</td>
+								</tr>
+							</tfoot>
+						</table>
+					</div>
+				</section>
+
+
+
+				<section >
+					<div class="table-wrapper">
+						<table>
+							<thead>
+								<tr>
+									<th>Payer Id</th>
+									<th>Amount</th>
+									<th>Status</th>
+
+								</tr>
+							</thead>
+							<tbody>
+								<tr ng-repeat="listItem in transferList track by $index">
+									<td>{{listItem.payer_id}}</td>
+									<td>{{listItem.amount}}</td>
+									<td>{{listItem.status}}</td>
+								</tr>
+								
+							</tbody>
+							<tfoot>
+								<tr>
+									<td colspan="1"></td>
+									<td>{{amount}}</td>
 								</tr>
 							</tfoot>
 						</table>
